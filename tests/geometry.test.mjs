@@ -1,6 +1,12 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {layouts,polygons,area,frameGeometry,bounds,imagePlacement,outputSize,hit} from '../dist/geometry.js';
+test('36 layout families include 12 classic and 24 creative designs with distinct geometry',()=>{
+ assert.equal(layouts.length,36);assert.equal(new Set(layouts.map(l=>l[0])).size,36);
+ assert.equal(layouts.filter(l=>l[1]==='classic').length,12);assert.equal(layouts.filter(l=>l[1]==='creative').length,24);
+ const shapes=layouts.map(([id])=>JSON.stringify(polygons(id,7).map(p=>p.map(v=>v.map(n=>Number(n.toFixed(6)))))));
+ assert.equal(new Set(shapes).size,36);
+});
 test('every layout partitions the canvas into exactly 1–24 non-overlapping convex photo cells',()=>{
  for(const [id] of layouts)for(let n=1;n<=24;n++)for(const ratio of [.2,9/16,1,16/9,5]){
   const cells=polygons(id,n,ratio);assert.equal(cells.length,n,`${id}/${n}`);assert.ok(Math.abs(cells.reduce((s,p)=>s+area(p),0)-1)<1e-8,`${id}/${n} coverage`);
