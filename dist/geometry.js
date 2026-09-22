@@ -1,0 +1,24 @@
+export const layouts=[['grid','classic','Lưới','Grid'],['columns','classic','Dọc','Columns'],['rows','classic','Ngang','Rows'],['hero','classic','Tiêu điểm','Spotlight'],['editorial','classic','Tạp chí','Editorial'],['film','classic','Điện ảnh','Cinema'],['brick','creative','Lát gạch','Brickwork'],['mosaic','creative','Khảm','Mosaic'],['diagonal','creative','Đường chéo','Diagonal'],['chevron','creative','Zigzag','Zigzag'],['shards','creative','Pha lê','Prism'],['fan','creative','Cánh quạt','Sunburst']];
+const rect=(x,y,w,h)=>[[x,y],[x+w,y],[x+w,y+h],[x,y+h]];
+const lerp=(a,b,t)=>[a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t];
+export function clip(poly,nx,ny,d){const out=[];for(let i=0;i<poly.length;i++){const a=poly[i],b=poly[(i+1)%poly.length],da=a[0]*nx+a[1]*ny-d,db=b[0]*nx+b[1]*ny-d;if(da>=-1e-8)out.push(a);if((da>0&&db<0)||(da<0&&db>0))out.push(lerp(a,b,da/(da-db)));}return out;}
+export function bounds(p){const xs=p.map(v=>v[0]),ys=p.map(v=>v[1]);return {x:Math.min(...xs),y:Math.min(...ys),w:Math.max(...xs)-Math.min(...xs),h:Math.max(...ys)-Math.min(...ys)};}
+export function area(p){return Math.abs(p.reduce((s,a,i)=>{const b=p[(i+1)%p.length];return s+a[0]*b[1]-b[0]*a[1];},0)/2);}
+function tiles(n,rows,stagger=false){const out=[];for(let r=0;r<rows;r++){const count=Math.floor(n/rows)+(r<n%rows?1:0);const widths=Array.from({length:count},(_,i)=>stagger&&count>1?(i===0?(r%2?.6:1.4):i===count-1?(r%2?1.4:.6):1):1);let x=0;for(let c=0;c<count;c++){out.push(rect(x,r/rows,widths[c]/count,1/rows));x+=widths[c]/count;}}return out;}
+function subdivide(n,angled=false){const out=[rect(0,0,1,1)];while(out.length<n){const idx=out.reduce((best,p,i)=>area(p)>area(out[best])?i:best,0),p=out[idx],b=bounds(p),vertical=b.w>b.h*.95;let nx=vertical?1:0,ny=vertical?0:1;if(angled){if(vertical)ny=(out.length%2?.42:-.42);else nx=(out.length%2?.38:-.38);}const values=p.map(a=>a[0]*nx+a[1]*ny),d=(Math.min(...values)+Math.max(...values))/2;out.splice(idx,1,clip(p,nx,ny,d),clip(p,-nx,-ny,-d));}return out;}
+export function polygons(id,n,ratio=1){
+ if(n===1)return [rect(0,0,1,1)];
+ if(id==='columns')return Array.from({length:n},(_,i)=>rect(i/n,0,1/n,1));
+ if(id==='rows')return Array.from({length:n},(_,i)=>rect(0,i/n,1,1/n));
+ if(id==='hero'||id==='editorial'||id==='film'){const horizontal=id==='film',large=id==='editorial'?.62:.58;const rest=tiles(n-1,Math.min(n-1,Math.max(1,Math.round(Math.sqrt(n-1)*(horizontal?.55:1.5)))));return horizontal?[rect(0,0,1,large),...rest.map(p=>p.map(([x,y])=>[x,large+y*(1-large)]))]:[rect(0,0,large,1),...rest.map(p=>p.map(([x,y])=>[large+x*(1-large),y]))];}
+ if(id==='mosaic'||id==='shards')return subdivide(n,id==='shards');
+ if(id==='diagonal')return Array.from({length:n},(_,i)=>clip(clip(rect(0,0,1,1),1,.5,1.5*i/n),-1,-.5,-1.5*(i+1)/n));
+ if(id==='chevron'){if(n<5)return subdivide(n,true);const left=Math.ceil((n-2)/2),right=n-2-left,out=[];for(let i=0;i<left;i++)out.push([[0,i/left],[.5,.2+i*.6/left],[.5,.2+(i+1)*.6/left],[0,(i+1)/left]]);out.push([[0,0],[1,0],[.5,.2]],[[0,1],[.5,.8],[1,1]]);for(let i=0;i<right;i++)out.push([[.5,.2+i*.6/right],[1,i/right],[1,(i+1)/right],[.5,.2+(i+1)*.6/right]]);return out;}
+ if(id==='fan'){if(n===2)return subdivide(n,true);return Array.from({length:n},(_,i)=>{const a=-Math.PI/4+i*Math.PI*2/n,b=a+Math.PI*2/n;return clip(clip(rect(0,0,1,1),-Math.sin(a),Math.cos(a),(-Math.sin(a)+Math.cos(a))*.5),Math.sin(b),-Math.cos(b),(Math.sin(b)-Math.cos(b))*.5);});}
+ return tiles(n,Math.min(n,Math.max(1,Math.round(Math.sqrt(n/ratio)))),id==='brick');
+}
+export function inset(poly,distance){let result=poly;for(let i=0;i<poly.length;i++){const a=poly[i],b=poly[(i+1)%poly.length],dx=b[0]-a[0],dy=b[1]-a[1],len=Math.hypot(dx,dy);if(len<1e-8)continue;const nx=-dy/len,ny=dx/len;result=clip(result,nx,ny,nx*a[0]+ny*a[1]+distance);}return result;}
+export function frameGeometry(id,n,w,h,requestedGap){const base=polygons(id,n,w/h);let gap=requestedGap;for(let i=0;i<30;i++){const pad=gap/2,scaled=base.map(p=>p.map(([x,y])=>[pad+x*(w-2*pad),pad+y*(h-2*pad)])),inner=scaled.map(p=>inset(p,gap/2));if(inner.every((p,i)=>p.length>=3&&area(p)>area(scaled[i])*.25))return {cells:inner,gap};gap*=.8;}return {cells:base.map(p=>p.map(([x,y])=>[x*w,y*h])),gap:0};}
+export function hit(poly,x,y){let inside=false;for(let i=0,j=poly.length-1;i<poly.length;j=i++){const [xi,yi]=poly[i],[xj,yj]=poly[j];if(((yi>y)!==(yj>y))&&(x<(xj-xi)*(y-yi)/(yj-yi)+xi))inside=!inside;}return inside;}
+export function imagePlacement(image,box,photo){const scale=Math.max(box.w/image.width,box.h/image.height)*photo.zoom,iw=image.width*scale,ih=image.height*scale;return {x:box.x-(iw-box.w)*photo.x,y:box.y-(ih-box.h)*photo.y,w:iw,h:ih,overflowX:iw-box.w,overflowY:ih-box.h};}
+export function outputSize(ratio){return ratio>=1?{w:3840,h:Math.round(3840/ratio)}:{w:Math.round(3840*ratio),h:3840};}
