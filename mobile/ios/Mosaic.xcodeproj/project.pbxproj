@@ -67,6 +67,16 @@
 			"isa" = "PBXBuildFile";
 			"fileRef" = "F7B2F5E0B2E7DD1C57C9A4D0";
 		};
+		"26B2A637F7DC4079D5AB78A5" = {
+			"isa" = "PBXFileReference";
+			"lastKnownFileType" = "text.xml";
+			"path" = "Mosaic/PrivacyInfo.xcprivacy";
+			"sourceTree" = "<group>";
+		};
+		"4D41DD372D8E0FAD9BCA5A62" = {
+			"isa" = "PBXBuildFile";
+			"fileRef" = "26B2A637F7DC4079D5AB78A5";
+		};
 		"A7A36BCCA4FFF9E82FC3552C" = {
 			"isa" = "PBXFileReference";
 			"lastKnownFileType" = "sourcecode.cpp.cpp";
@@ -85,13 +95,13 @@
 		};
 		"FBDC4F23F93125BBEEAE800C" = {
 			"isa" = "PBXGroup";
-			"children" = ("7D1043473D55BFA90E8530D3", "F219C0274590DA45E4BEF1EA");
+			"children" = ("7D1043473D55BFA90E8530D3", "F219C0274590DA45E4BEF1EA", "A7C9FD69DA095A3BF0CB4587");
 			"name" = "Products";
 			"sourceTree" = "<group>";
 		};
 		"B28B7AF69320201D1CF206EB" = {
 			"isa" = "PBXGroup";
-			"children" = ("28AAD1477D5182D66D4B03B3", "790E805B45519A5C1C62C545", "715AE25114094100E9EA67EF", "8EA505C86CBDFB763D1D830D", "4DF785AE15C4C12CD93C2B98", "7B594B6DB375E1BF3F23CDD6", "F7B2F5E0B2E7DD1C57C9A4D0", "A7A36BCCA4FFF9E82FC3552C", "FBDC4F23F93125BBEEAE800C", "5B075BCED513718BE1FC24A3");
+			"children" = ("28AAD1477D5182D66D4B03B3", "790E805B45519A5C1C62C545", "715AE25114094100E9EA67EF", "8EA505C86CBDFB763D1D830D", "4DF785AE15C4C12CD93C2B98", "7B594B6DB375E1BF3F23CDD6", "F7B2F5E0B2E7DD1C57C9A4D0", "26B2A637F7DC4079D5AB78A5", "A7A36BCCA4FFF9E82FC3552C", "FBDC4F23F93125BBEEAE800C", "5B075BCED513718BE1FC24A3", "695A4236F9747D9489AFB840");
 			"sourceTree" = "<group>";
 		};
 		"BCE16DD0260827ECF338C787" = {
@@ -103,7 +113,7 @@
 		"0189424A5A60FED329FA868E" = {
 			"isa" = "PBXResourcesBuildPhase";
 			"buildActionMask" = 2147483647;
-			"files" = ("993A6F0DC816349E9715E5C7");
+			"files" = ("993A6F0DC816349E9715E5C7", "4D41DD372D8E0FAD9BCA5A62");
 			"runOnlyForDeploymentPostprocessing" = 0;
 		};
 		"7561BFB015D8F536760CB671" = {
@@ -274,6 +284,87 @@
 			"productReference" = "F219C0274590DA45E4BEF1EA";
 			"productType" = "com.apple.product-type.bundle.unit-test";
 		};
+		"695A4236F9747D9489AFB840" = {
+			"isa" = "PBXFileReference";
+			"lastKnownFileType" = "sourcecode.swift";
+			"path" = "MosaicUITests/EditorUITests.swift";
+			"sourceTree" = "<group>";
+		};
+		"A7C9FD69DA095A3BF0CB4587" = {
+			"isa" = "PBXFileReference";
+			"explicitFileType" = "wrapper.cfbundle";
+			"path" = "MosaicUITests.xctest";
+			"sourceTree" = "BUILT_PRODUCTS_DIR";
+		};
+		"22F767E22721332D022E3EE9" = {
+			"isa" = "PBXBuildFile";
+			"fileRef" = "695A4236F9747D9489AFB840";
+		};
+		"3F0002D04A541FE103F80CF6" = {
+			"isa" = "PBXSourcesBuildPhase";
+			"buildActionMask" = 2147483647;
+			"files" = ("22F767E22721332D022E3EE9");
+			"runOnlyForDeploymentPostprocessing" = 0;
+		};
+		"94C1D7A82E2F92E70C5BA5D8" = {
+			"isa" = "XCBuildConfiguration";
+			"buildSettings" = {
+				"SDKROOT" = "iphoneos";
+				"IPHONEOS_DEPLOYMENT_TARGET" = "17.0";
+				"CLANG_CXX_LANGUAGE_STANDARD" = "c++17";
+				"OTHER_CPLUSPLUSFLAGS" = "-ffp-contract=off";
+				"CLANG_ENABLE_MODULES" = "YES";
+				"CLANG_ENABLE_OBJC_ARC" = "YES";
+				"SWIFT_VERSION" = "5.0";
+				"PRODUCT_BUNDLE_IDENTIFIER" = "com.ameriframe.mosaic.uitests";
+				"PRODUCT_NAME" = "$(TARGET_NAME)";
+				"TARGETED_DEVICE_FAMILY" = "1,2";
+				"CODE_SIGN_STYLE" = "Automatic";
+				"ENABLE_TESTABILITY" = "YES";
+				"ENABLE_USER_SCRIPT_SANDBOXING" = "YES";
+				"GENERATE_INFOPLIST_FILE" = "YES";
+				"TEST_TARGET_NAME" = "Mosaic";
+			};
+			"name" = "Debug";
+		};
+		"9609A256A79253DD705A918E" = {
+			"isa" = "XCBuildConfiguration";
+			"buildSettings" = {
+				"SDKROOT" = "iphoneos";
+				"IPHONEOS_DEPLOYMENT_TARGET" = "17.0";
+				"CLANG_CXX_LANGUAGE_STANDARD" = "c++17";
+				"OTHER_CPLUSPLUSFLAGS" = "-ffp-contract=off";
+				"CLANG_ENABLE_MODULES" = "YES";
+				"CLANG_ENABLE_OBJC_ARC" = "YES";
+				"SWIFT_VERSION" = "5.0";
+				"PRODUCT_BUNDLE_IDENTIFIER" = "com.ameriframe.mosaic.uitests";
+				"PRODUCT_NAME" = "$(TARGET_NAME)";
+				"TARGETED_DEVICE_FAMILY" = "1,2";
+				"CODE_SIGN_STYLE" = "Automatic";
+				"ENABLE_TESTABILITY" = "YES";
+				"ENABLE_USER_SCRIPT_SANDBOXING" = "YES";
+				"GENERATE_INFOPLIST_FILE" = "YES";
+				"TEST_TARGET_NAME" = "Mosaic";
+			};
+			"name" = "Release";
+		};
+		"9438044C2E3DA8B7D373989E" = {
+			"isa" = "XCConfigurationList";
+			"buildConfigurations" = ("94C1D7A82E2F92E70C5BA5D8", "9609A256A79253DD705A918E");
+			"defaultConfigurationIsVisible" = 0;
+			"defaultConfigurationName" = "Release";
+		};
+		"5A84779F73F7B6419BDB1882" = {
+			"isa" = "PBXNativeTarget";
+			"buildConfigurationList" = "9438044C2E3DA8B7D373989E";
+			"buildPhases" = ("3F0002D04A541FE103F80CF6");
+			"buildRules" = ();
+			"dependencies" = ("C58B1D22E6B06406536A4294");
+			"name" = "MosaicUITests";
+			"productName" = "MosaicUITests";
+			"productReference" = "A7C9FD69DA095A3BF0CB4587";
+			"productType" = "com.apple.product-type.bundle.ui-testing";
+		};
 		"89E1FD6268CC0F221A2BE178" = {
 			"isa" = "XCBuildConfiguration";
 			"buildSettings" = {
@@ -306,7 +397,7 @@
 			"productRefGroup" = "FBDC4F23F93125BBEEAE800C";
 			"projectDirPath" = "";
 			"projectRoot" = "";
-			"targets" = ("0E8A3AD980EC179856012B7E", "64BCB755386F844C96A2A5B0");
+			"targets" = ("0E8A3AD980EC179856012B7E", "64BCB755386F844C96A2A5B0", "5A84779F73F7B6419BDB1882");
 		};
 	};
 	"rootObject" = "98F54143AB4E86B28C3AFEE0";
