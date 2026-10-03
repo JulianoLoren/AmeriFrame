@@ -1,0 +1,35 @@
+name: Native desktop
+on:
+  push:
+    paths: ['desktop/**', 'mobile/core/**', 'mobile/ios/Mosaic/GeometryBridge.*', 'assets/icons/**', '.github/workflows/desktop.yml']
+  pull_request:
+    paths: ['desktop/**', 'mobile/core/**', 'mobile/ios/Mosaic/GeometryBridge.*', 'assets/icons/**', '.github/workflows/desktop.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  macos:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 desktop/scripts/verify_bridge.py
+      - run: desktop/macos/test.sh
+      - run: ditto -c -k --sequesterRsrc --keepParent desktop/macos/build/Mosaic.app desktop/macos/build/Mosaic-macOS.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Mosaic-macOS
+          path: desktop/macos/build/Mosaic-macOS.zip
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+      - name: Build native DLL, run Windows rendering tests, publish portable app
+        shell: pwsh
+        run: ./desktop/windows/build.ps1
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Mosaic-Windows-x64
+          path: desktop/windows/build/Mosaic/

@@ -4,7 +4,9 @@
 - Mosaic is a private, offline photo collage studio. Do not upload photos, add analytics, or introduce a server requirement.
 - `dist/` contains the dependency-free web app; these are maintained source files, not disposable build output.
 - `mobile/ios/` contains the native SwiftUI app. `mobile/android/` contains the native Kotlin/Jetpack Compose app.
-- `mobile/core/` contains platform-independent C++ layout geometry shared by both apps. Keep its behavior aligned with `dist/geometry.js`.
+- `desktop/macos/` contains SwiftUI/AppKit; `desktop/windows/` contains native WPF and its C ABI bridge. Follow `desktop/README.md` for build and test commands.
+- `assets/icons/generate.py` generates the shared icon assets for web and all four native platforms.
+- `mobile/core/` contains platform-independent C++ layout geometry shared by all native apps. Keep its behavior aligned with `dist/geometry.js`.
 - Preserve Vietnamese and English, all 36 layout families, 1–24 photos, crop containment, safe borders, and a 3840-pixel export long edge.
 
 ## Implementation
