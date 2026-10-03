@@ -72,14 +72,13 @@ fun MosaicEditor(model: EditorModel = viewModel()) {
     var customHeight by rememberSaveable { mutableStateOf("1") }
     var colorHex by rememberSaveable { mutableStateOf("FFFFFF") }
     var saving by rememberSaveable { mutableStateOf(false) }
-    var saveSource by remember { mutableStateOf<java.io.File?>(null) }
     var copying by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
     val collage = model.collage
     val selectedPhoto = collage.photos.getOrNull(model.selected)
     val picker = rememberLauncherForActivityResult(ActivityResultContracts.PickMultipleVisualMedia(24)) { model.load(context.applicationContext, it, vi) }
     val savePicker = rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument(if (png) "image/png" else "image/jpeg")) { uri ->
-        val file = saveSource; saveSource = null
+        val file = model.pendingSave; model.pendingSave = null
         if (uri != null && file != null) {
             copying = true
             scope.launch {
@@ -98,7 +97,7 @@ fun MosaicEditor(model: EditorModel = viewModel()) {
         model.exportFile = null
         try {
             if (saving) {
-                saveSource = file; savePicker.launch(file.name)
+                model.pendingSave = file; savePicker.launch(file.name)
             } else {
                 val uri = FileProvider.getUriForFile(context, "${context.packageName}.exports", file)
                 val intent = Intent(Intent.ACTION_SEND).apply {

@@ -58,6 +58,8 @@ data class Collage(
         return RectF(x, y, x + width, y + height)
     }
     fun draw(canvas: Canvas, width: Float, height: Float, selected: Int = -1, geometry: Geometry = geometry(width, height)) {
+        canvas.save()
+        canvas.clipRect(0f, 0f, width, height)
         canvas.drawColor(color)
         val paint = Paint(Paint.ANTI_ALIAS_FLAG or Paint.FILTER_BITMAP_FLAG)
         geometry.cells.forEachIndexed { index, cell ->
@@ -72,6 +74,7 @@ data class Collage(
                 }
             }
         }
+        canvas.restore()
     }
     fun export(context: Context, png: Boolean): File {
         val bitmap = Bitmap.createBitmap(outputWidth, outputHeight, Bitmap.Config.ARGB_8888)
@@ -94,6 +97,7 @@ class EditorModel : ViewModel() {
     var busy by mutableStateOf(false); private set
     var error by mutableStateOf<String?>(null)
     var exportFile by mutableStateOf<File?>(null)
+    var pendingSave: File? = null
     fun update(value: Collage) { if (!busy) collage = value }
     fun resetCrops(value: Collage = collage) { update(value.copy(photos = value.photos.map { it.copy(x = .5f, y = .5f, zoom = 1f) })) }
     fun crop(transform: (Photo) -> Photo) { update(collage.copy(photos = collage.photos.mapIndexed { i, p -> if (i == selected) transform(p) else p })) }

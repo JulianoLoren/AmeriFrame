@@ -26,6 +26,14 @@ class CollageTest {
             assertTrue(geo.cells.all { !it.path.isEmpty && it.box.width()>0 && it.box.height()>0 })
         }
     }
+    @Test fun previewDoesNotPaintOutsideItsBounds() {
+        val bitmap=Bitmap.createBitmap(200,200,Bitmap.Config.ARGB_8888).apply { eraseColor(Color.BLACK) }
+        val canvas=android.graphics.Canvas(bitmap); canvas.translate(50f,50f)
+        Collage(listOf(photo(Color.RED)), border=0f).draw(canvas,100f,100f)
+        assertEquals(Color.BLACK,bitmap.getPixel(0,0))
+        assertEquals(Color.RED,bitmap.getPixel(100,100))
+        assertEquals(Color.BLACK,bitmap.getPixel(199,199)); bitmap.recycle()
+    }
     @Test fun cropAlwaysCoversCell() {
         val collage = Collage(); val photo=photo(Color.RED); val box=RectF(23f,41f,153f,461f)
         for(zoom in listOf(1f,2f,4f)) for(x in listOf(0f,.5f,1f)) for(y in listOf(0f,.5f,1f))
