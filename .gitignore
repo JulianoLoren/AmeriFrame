@@ -18,3 +18,11 @@ mobile/**/xcuserdata/
 .DS_Store
 mobile/**/.cxx/
 mobile/**/.idea/
+
+# Native desktop outputs
+desktop/**/build/
+desktop/**/bin/
+desktop/**/obj/
+desktop/**/DerivedData/
+desktop/**/xcuserdata/
+desktop/**/.vs/
