@@ -6,3 +6,13 @@ secrets/*
 !secrets/README.md
 *.tar
 *.tar.gz
+
+# Native mobile build products and machine-local configuration
+mobile/**/build/
+mobile/**/.gradle/
+mobile/**/.kotlin/
+mobile/**/local.properties
+mobile/**/DerivedData/
+mobile/**/xcuserdata/
+*.xcuserstate
+.DS_Store
