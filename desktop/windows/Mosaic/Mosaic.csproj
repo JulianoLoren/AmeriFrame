@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationIcon>AppIcon.ico</ApplicationIcon>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <AssemblyName>Mosaic</AssemblyName>
+    <RootNamespace>Mosaic</RootNamespace>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Resource Include="AppIcon.ico" />
+    <Content Include="$(MosaicNativeLibrary)" Link="MosaicGeometry.dll" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" Condition="'$(MosaicNativeLibrary)' != ''" />
+  </ItemGroup>
+  <Target Name="RequireNativeGeometry" BeforeTargets="Build" Condition="'$(DesignTimeBuild)' != 'true'">
+    <Error Condition="'$(MosaicNativeLibrary)' == '' Or !Exists('$(MosaicNativeLibrary)')" Text="Build the native geometry library first; pass -p:MosaicNativeLibrary=absolute/path/MosaicGeometry.dll. See desktop/README.md." />
+  </Target>
+</Project>
