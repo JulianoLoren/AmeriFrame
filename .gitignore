@@ -1,0 +1,8 @@
+# Local deployment settings and credentials
+.env
+.env.*
+!.env.example
+secrets/*
+!secrets/README.md
+*.tar
+*.tar.gz

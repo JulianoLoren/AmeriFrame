@@ -2,7 +2,13 @@
 
 A responsive, bilingual Vietnamese/English photo collage studio. Plain ES modules and Canvas 2D; no build or runtime dependencies.
 
-## Run locally
+## Docker deployment
+
+See [DEPLOY.md](DEPLOY.md) for Docker Compose with Cloudflare Tunnel. No host ports
+are published. Add your tunnel token as a local secret file, configure the
+Cloudflare route to `http://web:8080`, then run `docker compose up -d --build --wait`.
+
+## Run without Docker
 
 From this directory: `python -m http.server 4173 --bind 127.0.0.1 --directory dist`, then open http://127.0.0.1:4173/.
 

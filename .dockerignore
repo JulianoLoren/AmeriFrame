@@ -1,0 +1,11 @@
+**
+!Dockerfile
+!docker/
+!docker/nginx.conf
+!dist/
+!dist/index.html
+!dist/app.js
+!dist/geometry.js
+!dist/theme.js
+!dist/style.css
+!dist/themes.css
