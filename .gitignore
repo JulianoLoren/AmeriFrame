@@ -16,3 +16,5 @@ mobile/**/DerivedData/
 mobile/**/xcuserdata/
 *.xcuserstate
 .DS_Store
+mobile/**/.cxx/
+mobile/**/.idea/
