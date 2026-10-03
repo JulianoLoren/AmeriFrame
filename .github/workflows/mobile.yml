@@ -1,0 +1,58 @@
+name: Native mobile
+on:
+  push:
+    paths: ['mobile/**', 'dist/geometry.js', 'tests/geometry.test.mjs', '.github/workflows/mobile.yml']
+  pull_request:
+    paths: ['mobile/**', 'dist/geometry.js', 'tests/geometry.test.mjs', '.github/workflows/mobile.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  geometry:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test tests/geometry.test.mjs
+      - run: python3 mobile/scripts/verify_core.py
+  ios:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Select an installed iPhone simulator
+        run: |
+          DEVICE=$(xcrun simctl list devices available -j | python3 -c 'import json,sys; print(next(d["udid"] for ds in json.load(sys.stdin)["devices"].values() for d in ds if d["name"].startswith("iPhone")))')
+          echo "MOSAIC_SIMULATOR=$DEVICE" >> "$GITHUB_ENV"
+      - name: Seed photo picker fixtures
+        run: |
+          xcrun simctl boot "$MOSAIC_SIMULATOR"
+          xcrun simctl bootstatus "$MOSAIC_SIMULATOR" -b
+          xcrun simctl addmedia "$MOSAIC_SIMULATOR" tests/fixtures/photo-1.png tests/fixtures/photo-2.png
+      - name: Build and test iOS
+        run: xcodebuild -project mobile/ios/Mosaic.xcodeproj -scheme Mosaic -destination "platform=iOS Simulator,id=$MOSAIC_SIMULATOR" -parallel-testing-enabled NO -derivedDataPath "$RUNNER_TEMP/mosaic-ios" CODE_SIGNING_ALLOWED=NO test
+  android:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: android-actions/setup-android@v3
+      - uses: gradle/actions/setup-gradle@v4
+      - run: sdkmanager 'platforms;android-36' 'build-tools;35.0.0' 'ndk;27.2.12479018' 'cmake;3.22.1'
+      - run: ./gradlew :app:assembleDebug :app:lintDebug
+        working-directory: mobile/android
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+      - uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 35
+          arch: x86_64
+          working-directory: mobile/android
+          script: ./gradlew :app:connectedDebugAndroidTest

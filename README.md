@@ -2,6 +2,10 @@
 
 A responsive, bilingual Vietnamese/English photo collage studio. Plain ES modules and Canvas 2D; no build or runtime dependencies.
 
+## Native iOS and Android apps
+
+See [mobile/README.md](mobile/README.md) for the SwiftUI iOS app and Kotlin/Jetpack Compose Android app, build instructions, and tests. Both run offline and share all 36 collage layouts through a native C++ engine.
+
 ## Docker deployment
 
 See [DEPLOY.md](DEPLOY.md) for Docker Compose with Cloudflare Tunnel. No host ports
