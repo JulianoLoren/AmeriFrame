@@ -16,6 +16,16 @@ internal record Collage(List<Photo> Photos, string Layout="grid", double Ratio=1
         double w=photo.Image.PixelWidth*scale,h=photo.Image.PixelHeight*scale;
         return new Rect(box.X-(w-box.Width)*photo.X,box.Y-(h-box.Height)*photo.Y,w,h);
     }
+    internal static Photo Transform(Photo photo, Rect box, Point anchor, Point destination, double zoom)
+    {
+        var before=Placement(photo,box);var result=photo with{Zoom=Math.Clamp(zoom,1,4)};
+        var after=Placement(result,box);
+        double left=destination.X-(anchor.X-before.X)*after.Width/before.Width;
+        double top=destination.Y-(anchor.Y-before.Y)*after.Height/before.Height;
+        return result with{
+            X=after.Width>box.Width?Math.Clamp((box.X-left)/(after.Width-box.Width),0,1):.5,
+            Y=after.Height>box.Height?Math.Clamp((box.Y-top)/(after.Height-box.Height),0,1):.5};
+    }
     internal void Draw(DrawingContext context, double width, double height, int selected=-1)
     {
         context.PushClip(new RectangleGeometry(new Rect(0,0,width,height)));

@@ -31,6 +31,19 @@ final class CollageTests: XCTestCase {
             XCTAssertTrue(collage.placement(p, in: box).contains(box))
         } } }
     }
+    func testAnchoredZoomAndPanStayContained() {
+        let collage = Collage(), original = photo(.red, width: 200, height: 200)
+        let box = CGRect(x: 10, y: 20, width: 200, height: 200), anchor = CGPoint(x: 70, y: 100)
+        let result = collage.transformed(original, in: box, from: anchor, to: anchor, zoom: 2)
+        let before = collage.placement(original, in: box), after = collage.placement(result, in: box)
+        XCTAssertEqual((anchor.x-before.minX)/before.width, (anchor.x-after.minX)/after.width, accuracy: 1e-9)
+        XCTAssertEqual((anchor.y-before.minY)/before.height, (anchor.y-after.minY)/after.height, accuracy: 1e-9)
+        for zoom in [0.1, 1, 3, 12] {
+            let moved = collage.transformed(result, in: box, from: anchor, to: CGPoint(x: -900, y: 1600), zoom: zoom)
+            XCTAssertTrue((1...4).contains(moved.zoom))
+            XCTAssertTrue(collage.placement(moved, in: box).contains(box))
+        }
+    }
     func testPNGAndJPEGExportDimensionsAndColors() throws {
         var collage = Collage(); collage.photos = [photo(.red), photo(.blue)]; collage.layout = "columns"; collage.border = 0; collage.ratio = 16.0/9
         for png in [true, false] {

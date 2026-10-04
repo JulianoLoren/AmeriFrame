@@ -10,7 +10,6 @@ struct EditorView: View {
     @State private var width = "1"
     @State private var height = "1"
     @State private var category = "all"
-    @State private var drag: (index: Int, photo: Photo, box: CGRect)?
     private var vi: Bool { language == "vi" }
     private func t(_ vi: String, _ en: String) -> String { self.vi ? vi : en }
     private var selected: Bool { model.collage.photos.indices.contains(model.selected) }
@@ -73,26 +72,18 @@ struct EditorView: View {
                     photoPicker
                 }.frame(maxWidth: .infinity).frame(height: 260).background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 18))
             } else {
-                GeometryReader { proxy in
-                    let size = proxy.size
-                    CollagePreview(collage: model.collage, selected: model.selected)
-                        .contentShape(Rectangle())
-                        .gesture(DragGesture(minimumDistance: 0).onChanged { value in
-                            if drag == nil {
-                                let cells = model.collage.geometry(size).cells
-                                guard let index = cells.firstIndex(where: { $0.contains(value.startLocation) }) else { return }
-                                model.selected = index; drag = (index, model.collage.photos[index], cells[index].boundingBoxOfPath)
-                            }
-                            guard let drag else { return }
-                            let place = model.collage.placement(drag.photo, in: drag.box)
-                            let dx = place.width - drag.box.width, dy = place.height - drag.box.height
-                            model.collage.photos[drag.index].x = dx > 0 ? min(1, max(0, drag.photo.x - value.translation.width / dx)) : 0.5
-                            model.collage.photos[drag.index].y = dy > 0 ? min(1, max(0, drag.photo.y - value.translation.height / dy)) : 0.5
-                        }.onEnded { _ in drag = nil })
-                        .accessibilityLabel(t("Khung ghép ảnh", "Photo collage"))
-                        .accessibilityHint(t("Chọn ảnh bên dưới để điều chỉnh vị trí và zoom.", "Select a photo below to adjust position and zoom."))
+                GeometryReader { _ in
+                    CollagePreview(collage: model.collage, selected: model.selected, enabled: !model.busy) { index, photo in
+                        guard !model.busy, model.collage.photos.indices.contains(index), model.collage.photos[index].id == photo.id else { return }
+                        model.selected = index; model.collage.photos[index] = photo
+                    }
+                    .contentShape(Rectangle())
+                    .accessibilityElement(children: .ignore)
+                    .accessibilityLabel(t("Khung ghép ảnh", "Photo collage"))
+                    .accessibilityValue(selected ? "\(Int(model.collage.photos[model.selected].zoom * 100))%" : "")
+                    .accessibilityHint(t("Chụm hai ngón để zoom, kéo để căn ảnh. Các thanh trượt nằm bên dưới.", "Pinch to zoom, drag to position. Adjustment sliders are below."))
                 }.aspectRatio(model.collage.ratio, contentMode: .fit)
-                Text(t("Chạm để chọn · Kéo để căn ảnh", "Tap to select · Drag to crop")).font(.caption).foregroundStyle(.secondary)
+                Text(t("Chạm để chọn · Kéo để căn ảnh · Chụm hai ngón để zoom", "Tap to select · Drag to crop · Pinch to zoom")).font(.caption).foregroundStyle(.secondary)
             }
         }
     }

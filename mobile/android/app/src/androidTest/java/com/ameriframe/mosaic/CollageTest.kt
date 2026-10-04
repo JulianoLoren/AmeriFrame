@@ -39,6 +39,18 @@ class CollageTest {
         for(zoom in listOf(1f,2f,4f)) for(x in listOf(0f,.5f,1f)) for(y in listOf(0f,.5f,1f))
             assertTrue(collage.placement(photo.copy(x=x,y=y,zoom=zoom),box).contains(box))
     }
+    @Test fun anchoredZoomAndPanStayContained() {
+        val collage = Collage(); val original = photo(Color.RED, 200, 200); val box = RectF(10f, 20f, 210f, 220f)
+        val result = collage.transformed(original, box, 70f, 100f, 0f, 0f, 2f)
+        val before = collage.placement(original, box); val after = collage.placement(result, box)
+        assertEquals((70f-before.left)/before.width(), (70f-after.left)/after.width(), 1e-6f)
+        assertEquals((100f-before.top)/before.height(), (100f-after.top)/after.height(), 1e-6f)
+        for (zoom in listOf(.1f, 1f, 3f, 12f)) {
+            val moved = collage.transformed(result, box, 70f, 100f, -900f, 1600f, zoom)
+            assertTrue(moved.zoom in 1f..4f)
+            assertTrue(collage.placement(moved, box).contains(box))
+        }
+    }
     @Test fun pngAndJpegHave4KDimensionsAndCorrectColors() {
         val collage = Collage(listOf(photo(Color.RED),photo(Color.BLUE)),"columns",16.0/9,0f)
         for(png in listOf(true,false)) {

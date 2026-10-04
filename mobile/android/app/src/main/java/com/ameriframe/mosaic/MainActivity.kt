@@ -15,8 +15,11 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.detectDragGestures
-import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.gestures.awaitEachGesture
+import androidx.compose.foundation.gestures.awaitFirstDown
+import androidx.compose.foundation.gestures.calculateCentroid
+import androidx.compose.foundation.gestures.calculatePan
+import androidx.compose.foundation.gestures.calculateZoom
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
@@ -143,7 +146,7 @@ fun MosaicEditor(model: EditorModel = viewModel()) {
                             }
                         } else {
                             Preview(model, t("Khung ghép ảnh. Chọn ảnh bên dưới để tinh chỉnh.", "Photo collage. Select a photo below to adjust."))
-                            Text(t("Chạm để chọn · Kéo để căn ảnh", "Tap to select · Drag to crop"), style = MaterialTheme.typography.bodySmall)
+                            Text(t("Chạm để chọn · Kéo để căn ảnh · Chụm hai ngón để zoom", "Tap to select · Drag to crop · Pinch to zoom"), style = MaterialTheme.typography.bodySmall)
                         }
                         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
                             Text("${t("Ảnh của bạn", "Your photos")} (${collage.photos.size}/24)", style = MaterialTheme.typography.titleMedium)
@@ -268,7 +271,7 @@ private fun LayoutTile(layout: Layout, collage: Collage, vi: Boolean, modifier: 
 }
 
 @Composable
-private fun Preview(model: EditorModel, label: String) {
+internal fun Preview(model: EditorModel, label: String) {
     val collage = model.collage
     var size by remember { mutableStateOf(IntSize.Zero) }
     val geo = remember(collage.layout, collage.photos.size, collage.ratio, collage.border, size) {
@@ -278,18 +281,30 @@ private fun Preview(model: EditorModel, label: String) {
         val clip = Region(0,0,size.width,size.height)
         Region().apply { setPath(cell.path,clip) }.contains(x.toInt(),y.toInt())
     } ?: -1
-    // Geometry keys deliberately exclude crop state so a drag isn't cancelled by its own updates.
+    // Crop updates do not restart the gesture; geometry and photo identity changes do.
     Canvas(Modifier.fillMaxWidth().aspectRatio(collage.ratio.toFloat()).onSizeChanged { size = it }.semantics { contentDescription = label }
-        .pointerInput(geo) { detectTapGestures { val index = hit(it.x,it.y); if(index >= 0 && !model.busy) model.selected = index } }
-        .pointerInput(geo) {
-            var active = -1
-            detectDragGestures(onDragStart = { active = hit(it.x,it.y); if(active >= 0)model.selected=active }, onDragEnd = { active=-1 }, onDragCancel = { active=-1 }) { change, amount ->
-                if(active >= 0 && !model.busy) {
-                    val current = model.collage; val photo = current.photos[active]; val box = geo!!.cells[active].box
-                    val placement = current.placement(photo,box); val dx=placement.width()-box.width(); val dy=placement.height()-box.height()
-                    model.crop { it.copy(x = if(dx>0)(it.x-amount.x/dx).coerceIn(0f,1f) else .5f, y = if(dy>0)(it.y-amount.y/dy).coerceIn(0f,1f) else .5f) }
-                    change.consume()
-                }
+        .pointerInput(geo, collage.photos.map { it.id }, model.busy) {
+            awaitEachGesture {
+                val down = awaitFirstDown(requireUnconsumed = false)
+                val active = hit(down.position.x, down.position.y)
+                if (active < 0 || model.busy) return@awaitEachGesture
+                model.selected = active
+                val id = model.collage.photos[active].id
+                down.consume()
+                do {
+                    val event = awaitPointerEvent()
+                    if (event.changes.any { it.isConsumed } || model.busy || model.selected != active) break
+                    val current = model.collage
+                    val photo = current.photos.getOrNull(active) ?: break
+                    if (photo.id != id) break
+                    if (event.changes.any { it.pressed && it.previousPressed }) {
+                        val anchor = event.calculateCentroid(useCurrent = false)
+                        val pan = event.calculatePan()
+                        val zoom = event.calculateZoom()
+                        model.crop { current.transformed(it, geo!!.cells[active].box, anchor.x, anchor.y, pan.x, pan.y, it.zoom * zoom) }
+                    }
+                    event.changes.forEach { it.consume() }
+                } while (event.changes.any { it.pressed })
             }
         }) {
         geo?.let { geometry -> drawIntoCanvas { collage.draw(it.nativeCanvas, this.size.width, this.size.height, model.selected, geometry) } }

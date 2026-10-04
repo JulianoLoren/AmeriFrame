@@ -27,7 +27,7 @@ try{
  assert.equal(Object.keys(container.HostConfig.PortBindings??{}).length,0);
  compose(['exec','-T','web','nginx','-t']);
  assert.equal(compose(['exec','-T','web','wget','-qO-','http://127.0.0.1:8080/healthz']),'ok');
- for(const file of ['index.html','app.js','geometry.js','theme.js','style.css','themes.css']){
+ for(const file of ['index.html','app.js','geometry.js','crop-gestures.js','theme.js','style.css','themes.css']){
   assert.equal(compose(['exec','-T','web','wget','-qO-',`http://127.0.0.1:8080/${file}`]),readFileSync(new URL(`../dist/${file}`,import.meta.url),'utf8').trim(),`${file} must match the checked-out source`);
  }
  assert.equal(compose(['run','--rm','--no-deps','--entrypoint','wget','web','-qO-','http://web:8080/healthz']),'ok','Compose DNS and origin network must work');

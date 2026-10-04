@@ -95,8 +95,8 @@ internal sealed class MainWindow : Window
         Heading(T("Xuất ảnh","Export"));Add(controls,Choice(T("Định dạng","Format"),new[]{"PNG","JPG"},png?0:1,i=>png=i==0));
         saveButton=Button(T("Lưu ảnh 4K… (Ctrl+S)","Save 4K image… (Ctrl+S)"),Save);Add(controls,saveButton);
         var previewPanel=new DockPanel{Margin=new Thickness(16,0,0,0)};Grid.SetColumn(previewPanel,1);sizeLabel=Text("");DockPanel.SetDock(sizeLabel,Dock.Top);previewPanel.Children.Add(sizeLabel);
-        var hint=Text(T("Chọn ảnh · Kéo để căn chỉnh · Có thể kéo thả tệp vào cửa sổ","Select a photo · Drag to crop · Drop files into the window"),12);DockPanel.SetDock(hint,Dock.Bottom);previewPanel.Children.Add(hint);
-        preview=new Preview{MinWidth=400,MinHeight=350};preview.CropChanged=(i,x,y)=>{if(!busy){selected=i;Crop(p=>p with{X=x,Y=y});RefreshSliders();}};previewPanel.Children.Add(preview);
+        var hint=Text(T("Kéo để căn ảnh · Lăn chuột / Chụm hai ngón để zoom","Drag to crop · Scroll / Pinch to zoom"),12);DockPanel.SetDock(hint,Dock.Bottom);previewPanel.Children.Add(hint);
+        preview=new Preview{MinWidth=400,MinHeight=350};preview.CropChanged=(i,photo)=>{if(!busy){selected=i;Crop(_=>photo);RefreshSliders();}};previewPanel.Children.Add(preview);
         grid.Children.Add(previewPanel);editor=grid;root.Children.Add(grid);Content=root;updating=false;Refresh();
     }
     private static bool Parse(string text,out double value)=>double.TryParse(text.Replace(',','.'),System.Globalization.NumberStyles.Float,System.Globalization.CultureInfo.InvariantCulture,out value)&&double.IsFinite(value);

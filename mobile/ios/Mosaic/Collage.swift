@@ -83,6 +83,17 @@ struct Collage {
         let w = photo.image.size.width * scale, h = photo.image.size.height * scale
         return CGRect(x: box.minX - (w - box.width) * photo.x, y: box.minY - (h - box.height) * photo.y, width: w, height: h)
     }
+    // Anchor zoom and pan to a point in the photo, then clamp to keep the frame covered.
+    func transformed(_ photo: Photo, in box: CGRect, from anchor: CGPoint, to destination: CGPoint, zoom: Double) -> Photo {
+        let before = placement(photo, in: box)
+        var result = photo; result.zoom = min(4, max(1, zoom))
+        let after = placement(result, in: box)
+        let left = destination.x - (anchor.x - before.minX) * after.width / before.width
+        let top = destination.y - (anchor.y - before.minY) * after.height / before.height
+        result.x = after.width > box.width ? min(1, max(0, (box.minX - left) / (after.width - box.width))) : 0.5
+        result.y = after.height > box.height ? min(1, max(0, (box.minY - top) / (after.height - box.height))) : 0.5
+        return result
+    }
     func draw(_ context: CGContext, size: CGSize, selected: Int? = nil) {
         context.setFillColor(color.cgColor); context.fill(CGRect(origin: .zero, size: size))
         let cells = geometry(size).cells
@@ -171,11 +182,71 @@ final class EditorModel: ObservableObject {
 struct CollagePreview: UIViewRepresentable {
     let collage: Collage
     let selected: Int
+    var enabled = true
+    var cropChanged: ((Int, Photo) -> Void)?
     func makeUIView(context: Context) -> Preview { Preview() }
-    func updateUIView(_ view: Preview, context: Context) { view.collage = collage; view.selected = selected; view.setNeedsDisplay() }
-    final class Preview: UIView {
+    func updateUIView(_ view: Preview, context: Context) {
+        view.collage = collage; view.selected = selected; view.isUserInteractionEnabled = enabled
+        view.cropChanged = cropChanged; view.setNeedsDisplay()
+    }
+    final class Preview: UIView, UIGestureRecognizerDelegate {
         var collage = Collage()
         var selected = 0
+        var cropChanged: ((Int, Photo) -> Void)?
+        private var active: (index: Int, id: UUID, box: CGRect)?
+        private var pinchPoint = CGPoint.zero
+        private lazy var pan = UIPanGestureRecognizer(target: self, action: #selector(panPhoto(_:)))
+        private lazy var pinch = UIPinchGestureRecognizer(target: self, action: #selector(pinchPhoto(_:)))
+        override init(frame: CGRect) {
+            super.init(frame: frame)
+            isMultipleTouchEnabled = true
+            pan.maximumNumberOfTouches = 2
+            for recognizer in [pan, pinch] { recognizer.delegate = self; addGestureRecognizer(recognizer) }
+            addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(selectPhoto(_:))))
+        }
+        required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+        private func begin(at point: CGPoint) -> Bool {
+            let cells = collage.geometry(bounds.size).cells
+            guard let index = cells.firstIndex(where: { $0.contains(point) }), collage.photos.indices.contains(index) else { active = nil; return false }
+            selected = index; active = (index, collage.photos[index].id, cells[index].boundingBoxOfPath)
+            cropChanged?(index, collage.photos[index]); setNeedsDisplay(); return true
+        }
+        private func change(from: CGPoint, to: CGPoint, scale: Double) {
+            guard let a = active, collage.photos.indices.contains(a.index), collage.photos[a.index].id == a.id,
+                  collage.geometry(bounds.size).cells[a.index].boundingBoxOfPath == a.box else { active = nil; return }
+            let photo = collage.photos[a.index]
+            let result = collage.transformed(photo, in: a.box, from: from, to: to, zoom: photo.zoom * scale)
+            collage.photos[a.index] = result; cropChanged?(a.index, result); setNeedsDisplay()
+        }
+        override func gestureRecognizerShouldBegin(_ recognizer: UIGestureRecognizer) -> Bool {
+            if recognizer === pinch && (pan.state == .began || pan.state == .changed) && active != nil { return true }
+            let location = recognizer.location(in: self)
+            if recognizer === pan {
+                let translation = pan.translation(in: self)
+                return begin(at: CGPoint(x: location.x - translation.x, y: location.y - translation.y))
+            }
+            return begin(at: location)
+        }
+        func gestureRecognizer(_ recognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith other: UIGestureRecognizer) -> Bool {
+            (recognizer === pan && other === pinch) || (recognizer === pinch && other === pan)
+        }
+        @objc private func selectPhoto(_ recognizer: UITapGestureRecognizer) { _ = begin(at: recognizer.location(in: self)); active = nil }
+        @objc private func panPhoto(_ recognizer: UIPanGestureRecognizer) {
+            defer { recognizer.setTranslation(.zero, in: self) }
+            guard pinch.state != .began && pinch.state != .changed, recognizer.numberOfTouches == 1 else { return }
+            let point = recognizer.location(in: self), delta = recognizer.translation(in: self)
+            if recognizer.state == .began || recognizer.state == .changed {
+                change(from: CGPoint(x: point.x - delta.x, y: point.y - delta.y), to: point, scale: 1)
+            }
+        }
+        @objc private func pinchPhoto(_ recognizer: UIPinchGestureRecognizer) {
+            let point = recognizer.location(in: self)
+            if recognizer.state == .began { pinchPoint = point }
+            if recognizer.state == .changed {
+                change(from: pinchPoint, to: point, scale: recognizer.scale)
+            }
+            pinchPoint = point; recognizer.scale = 1; pan.setTranslation(.zero, in: self)
+        }
         override func draw(_ rect: CGRect) {
             guard let context = UIGraphicsGetCurrentContext() else { return }
             collage.draw(context, size: bounds.size, selected: selected)

@@ -8,7 +8,6 @@ struct EditorView: View {
     @State private var width = "1"
     @State private var height = "1"
     @State private var category = "all"
-    @State private var drag: (index: Int, photo: Photo, box: CGRect)?
     private var vi: Bool { language == "vi" }
     private func t(_ v: String, _ e: String) -> String { vi ? v : e }
     private var selected: Bool { model.collage.photos.indices.contains(model.selected) }
@@ -38,24 +37,15 @@ struct EditorView: View {
                                 Button(t("Thêm ảnh", "Add photos")) { model.choosePhotos(vi: vi) }.buttonStyle(.borderedProminent)
                             }.foregroundStyle(.secondary).frame(maxWidth: .infinity, maxHeight: .infinity)
                         } else {
-                            CollagePreview(collage: model.collage, selected: model.selected)
-                                .frame(width: size.width, height: size.height)
-                                .gesture(DragGesture(minimumDistance: 0).onChanged { value in
-                                    if drag == nil {
-                                        let cells = model.collage.geometry(size)
-                                        guard let i = cells.firstIndex(where: { $0.contains(value.startLocation) }) else { return }
-                                        model.selected = i; drag = (i, model.collage.photos[i], cells[i].boundingBoxOfPath)
-                                    }
-                                    guard let d = drag else { return }
-                                    let place = model.collage.placement(d.photo, in: d.box)
-                                    let dx = place.width-d.box.width, dy = place.height-d.box.height
-                                    model.collage.photos[d.index].x = dx > 0 ? min(1,max(0,d.photo.x-value.translation.width/dx)) : 0.5
-                                    model.collage.photos[d.index].y = dy > 0 ? min(1,max(0,d.photo.y-value.translation.height/dy)) : 0.5
-                                }.onEnded { _ in drag = nil })
+                            CollagePreview(collage: model.collage, selected: model.selected, enabled: !model.busy) { index, photo in
+                                guard !model.busy, model.collage.photos.indices.contains(index), model.collage.photos[index].id == photo.id else { return }
+                                model.selected = index; model.collage.photos[index] = photo
+                            }
+                            .frame(width: size.width, height: size.height)
                         }
                     }.frame(width: proxy.size.width, height: proxy.size.height)
                 }
-                Text(t("Chọn ảnh · Kéo để căn chỉnh · Dùng thanh trượt để tinh chỉnh", "Select a photo · Drag to crop · Use sliders for precise adjustment")).font(.caption).foregroundStyle(.secondary)
+                Text(t("Kéo để căn ảnh · Lăn chuột / Chụm hai ngón để zoom", "Drag to crop · Scroll / Pinch to zoom")).font(.caption).foregroundStyle(.secondary)
             }.padding(24).frame(minWidth: 440).background(Color(nsColor: .underPageBackgroundColor))
         }
         .dropDestination(for: URL.self) { urls, _ in Task { await model.load(urls, vi: vi) }; return !model.busy }

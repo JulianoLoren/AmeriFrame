@@ -25,7 +25,7 @@ From this directory: `python -m http.server 4173 --bind 127.0.0.1 --directory di
 - Select or drop up to 24 JPG, PNG, WEBP or AVIF photos, up to 30 MB each. All image processing stays on the user's device.
 - Five ratio presets and a custom ratio from 1:5 to 5:1.
 - 36 adaptive layout families: 12 classic and 24 creative, including spiral, diamond, honeycomb, constellation, origami, and sunrays.
-- Drag to crop each image, zoom 100–400%, arrow-key positioning, and reset the selected image. Bracket keys select the previous/next photo.
+- Drag to crop each image; scroll or pinch directly on a photo to zoom 100–400% around the cursor or fingers. Also supports a zoom slider, +/− buttons, arrow-key positioning, and reset the selected image. Bracket keys select the previous/next photo.
 - White frame by default; custom colors and frame thickness. Extreme thickness is reduced when necessary to preserve all cells.
 - PNG/JPG downloads with a 3840-pixel long edge. Square output is 3840 × 3840; 16:9 is 3840 × 2160. Export dimensions do not add missing detail to low-resolution source images.
 - Black and white interface themes, initially following the system preference, with a persistent manual override. Theme changes do not modify photo colors or export settings.

@@ -6,7 +6,7 @@ Two fully native, offline clients for the existing Mosaic photo collage studio:
 - **Android 9+ (API 28)**: Kotlin, Jetpack Compose, Android Photo Picker, ImageDecoder/Canvas, system share sheet and document saver.
 - **Shared C++17 geometry**: all 36 web layouts, linked directly through Objective-C++ and JNI. No WebView, JavaScript runtime, account, server, or network permission.
 
-Both apps support 1–24 photos, five ratio presets and custom ratios from 1:5 to 5:1, layout categories, selection, drag-to-crop, accessible crop sliders, 100–400% zoom, reorder/remove/reset, 0–120 px frames, custom frame colors, Vietnamese/English, system/light/dark themes, and PNG/JPG exports with a 3840-pixel long edge. Preview and export share the same renderer and geometry; selection outlines are never exported.
+Both apps support 1–24 photos, five ratio presets and custom ratios from 1:5 to 5:1, layout categories, selection, drag-to-crop, pinch-to-zoom directly in each frame, accessible crop sliders, 100–400% zoom, reorder/remove/reset, 0–120 px frames, custom frame colors, Vietnamese/English, system/light/dark themes, and PNG/JPG exports with a 3840-pixel long edge. Preview and export share the same renderer and geometry; selection outlines are never exported.
 
 Use **Add photos → choose ratio/layout → adjust → export**. iOS uses the share sheet to save to Files/Photos or share. Android provides both Share and Save to file. Original photos are not changed. Formats supported by the platform's image decoder can be imported, including common JPEG/PNG/HEIC images; support for WEBP/AVIF depends on the OS version.
 

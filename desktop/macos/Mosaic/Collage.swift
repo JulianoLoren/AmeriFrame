@@ -68,6 +68,17 @@ struct Collage {
         return CGRect(x: box.minX-(w-box.width)*photo.x, y: box.minY-(h-box.height)*photo.y, width: w, height: h)
     }
     // Both AppKit preview and export provide a top-left coordinate system.
+    // Anchor zoom and pan to a point in the photo, then clamp to keep the frame covered.
+    func transformed(_ photo: Photo, in box: CGRect, from anchor: CGPoint, to destination: CGPoint, zoom: Double) -> Photo {
+        let before = placement(photo, in: box)
+        var result = photo; result.zoom = min(4, max(1, zoom))
+        let after = placement(result, in: box)
+        let left = destination.x - (anchor.x - before.minX) * after.width / before.width
+        let top = destination.y - (anchor.y - before.minY) * after.height / before.height
+        result.x = after.width > box.width ? min(1, max(0, (box.minX - left) / (after.width - box.width))) : 0.5
+        result.y = after.height > box.height ? min(1, max(0, (box.minY - top) / (after.height - box.height))) : 0.5
+        return result
+    }
     func draw(_ context: CGContext, size: CGSize, selected: Int? = nil) {
         context.saveGState(); defer { context.restoreGState() }
         context.clip(to: CGRect(origin: .zero, size: size))
@@ -171,11 +182,55 @@ struct Collage {
 struct CollagePreview: NSViewRepresentable {
     let collage: Collage
     let selected: Int
+    var enabled = true
+    var cropChanged: ((Int, Photo) -> Void)?
     func makeNSView(context: Context) -> Preview { Preview() }
-    func updateNSView(_ view: Preview, context: Context) { view.collage = collage; view.selected = selected; view.needsDisplay = true }
+    func updateNSView(_ view: Preview, context: Context) {
+        view.collage = collage; view.selected = selected; view.enabled = enabled
+        view.cropChanged = cropChanged; view.needsDisplay = true
+    }
     final class Preview: NSView {
-        var collage = Collage(); var selected = 0
+        var collage = Collage(); var selected = 0; var enabled = true
+        var cropChanged: ((Int, Photo) -> Void)?
+        private var active: (index: Int, id: UUID, box: CGRect)?
+        private var lastPoint = CGPoint.zero
         override var isFlipped: Bool { true }
+        override var acceptsFirstResponder: Bool { true }
+        override func acceptsFirstMouse(for event: NSEvent?) -> Bool { true }
+        private func begin(at point: CGPoint) -> Bool {
+            let cells = collage.geometry(bounds.size)
+            guard enabled, let i = cells.firstIndex(where: { $0.contains(point) }), collage.photos.indices.contains(i) else { active = nil; return false }
+            selected = i; active = (i, collage.photos[i].id, cells[i].boundingBoxOfPath)
+            cropChanged?(i, collage.photos[i]); needsDisplay = true; return true
+        }
+        private func change(from: CGPoint, to: CGPoint, scale: Double) {
+            guard enabled, let a = active, collage.photos.indices.contains(a.index), collage.photos[a.index].id == a.id,
+                  collage.geometry(bounds.size)[a.index].boundingBoxOfPath == a.box else { active = nil; return }
+            let photo = collage.photos[a.index]
+            let result = collage.transformed(photo, in: a.box, from: from, to: to, zoom: photo.zoom * scale)
+            collage.photos[a.index] = result; cropChanged?(a.index, result); needsDisplay = true
+        }
+        override func mouseDown(with event: NSEvent) {
+            lastPoint = convert(event.locationInWindow, from: nil)
+            if begin(at: lastPoint) { window?.makeFirstResponder(self) }
+        }
+        override func mouseDragged(with event: NSEvent) {
+            let point = convert(event.locationInWindow, from: nil)
+            change(from: lastPoint, to: point, scale: 1); lastPoint = point
+        }
+        override func mouseUp(with event: NSEvent) { active = nil }
+        override func scrollWheel(with event: NSEvent) {
+            let point = convert(event.locationInWindow, from: nil)
+            guard begin(at: point) else { super.scrollWheel(with: event); return }
+            let delta = event.scrollingDeltaY * (event.hasPreciseScrollingDeltas ? 1 : 16)
+            change(from: point, to: point, scale: exp(min(300, max(-300, delta)) * 0.002)); active = nil
+        }
+        override func magnify(with event: NSEvent) {
+            let point = convert(event.locationInWindow, from: nil)
+            if event.phase == .began || active == nil { guard begin(at: point) else { return }; lastPoint = point }
+            change(from: lastPoint, to: point, scale: max(0.01, 1 + event.magnification)); lastPoint = point
+            if event.phase == .ended || event.phase == .cancelled { active = nil }
+        }
         override func draw(_ dirtyRect: NSRect) {
             guard let context = NSGraphicsContext.current?.cgContext else { return }
             collage.draw(context, size: bounds.size, selected: selected)

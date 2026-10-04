@@ -29,6 +29,15 @@ internal static class Tests
             {
                 var box=new Rect(12,24,100,300);var placed=Collage.Placement(photo with{X=x,Y=y,Zoom=z},box);Check(placed.Contains(box),"crop containment");
             }
+            var zoomBox=new Rect(10,20,200,200);var anchor=new Point(70,100);
+            var zoomed=Collage.Transform(photo,zoomBox,anchor,anchor,2);
+            var before=Collage.Placement(photo,zoomBox);var after=Collage.Placement(zoomed,zoomBox);
+            Check(Math.Abs((anchor.X-before.X)/before.Width-(anchor.X-after.X)/after.Width)<1e-9,"zoom horizontal anchor");
+            Check(Math.Abs((anchor.Y-before.Y)/before.Height-(anchor.Y-after.Y)/after.Height)<1e-9,"zoom vertical anchor");
+            foreach(double zoom in new[]{.1,1,3,12}) {
+                var moved=Collage.Transform(zoomed,zoomBox,anchor,new Point(-900,1600),zoom);
+                Check(moved.Zoom>=1&&moved.Zoom<=4&&Collage.Placement(moved,zoomBox).Contains(zoomBox),"zoom/pan limits");
+            }
             var collage=new Collage([photo],Border:0);
             foreach(bool png in new[]{true,false})
             {

@@ -57,6 +57,17 @@ data class Collage(
         val x = box.left - (width - box.width()) * photo.x; val y = box.top - (height - box.height()) * photo.y
         return RectF(x, y, x + width, y + height)
     }
+    fun transformed(photo: Photo, box: RectF, anchorX: Float, anchorY: Float, panX: Float, panY: Float, zoom: Float): Photo {
+        val before = placement(photo, box)
+        val result = photo.copy(zoom = zoom.coerceIn(1f, 4f))
+        val after = placement(result, box)
+        val left = anchorX + panX - (anchorX - before.left) * after.width() / before.width()
+        val top = anchorY + panY - (anchorY - before.top) * after.height() / before.height()
+        return result.copy(
+            x = if (after.width() > box.width()) ((box.left - left) / (after.width() - box.width())).coerceIn(0f, 1f) else .5f,
+            y = if (after.height() > box.height()) ((box.top - top) / (after.height() - box.height())).coerceIn(0f, 1f) else .5f
+        )
+    }
     fun draw(canvas: Canvas, width: Float, height: Float, selected: Int = -1, geometry: Geometry = geometry(width, height)) {
         canvas.save()
         canvas.clipRect(0f, 0f, width, height)

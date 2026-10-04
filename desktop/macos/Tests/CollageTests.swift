@@ -32,6 +32,15 @@ import UniformTypeIdentifiers
             var p = photo(); p.zoom = zoom; p.x = x; p.y = y
             expect(collage.placement(p, in: box).contains(box), "Crop containment")
         } } }
+        let anchor = CGPoint(x: 113, y: 279), original = photo()
+        let zoomed = collage.transformed(original, in: box, from: anchor, to: anchor, zoom: 2)
+        let before = collage.placement(original, in: box), after = collage.placement(zoomed, in: box)
+        expect(abs((anchor.x-before.minX)/before.width - (anchor.x-after.minX)/after.width) < 1e-9, "Zoom horizontal anchor")
+        expect(abs((anchor.y-before.minY)/before.height - (anchor.y-after.minY)/after.height) < 1e-9, "Zoom vertical anchor")
+        for zoom in [0.1, 1, 3, 12] {
+            let moved = collage.transformed(zoomed, in: box, from: anchor, to: CGPoint(x: -900, y: 1600), zoom: zoom)
+            expect((1...4).contains(moved.zoom) && collage.placement(moved, in: box).contains(box), "Zoom/pan limits")
+        }
         for png in [true, false] {
             let url = directory.appendingPathComponent(png ? "test.png" : "test.jpg")
             try collage.export(to: url, png: png)

@@ -1,6 +1,20 @@
 import XCTest
 
 final class EditorUITests: XCTestCase {
+    @MainActor func testPinchZoomInFrame() throws {
+        let app = XCUIApplication(); app.launchArguments = ["-language", "vi"]; app.launch()
+        let addPhoto = app.buttons["Thêm ảnh"].firstMatch
+        XCTAssertTrue(addPhoto.waitForExistence(timeout: 15)); addPhoto.tap()
+        let photos = app.images.matching(NSPredicate(format: "label BEGINSWITH 'Photo,'"))
+        XCTAssertTrue(photos.firstMatch.waitForExistence(timeout: 30)); photos.firstMatch.tap(); app.buttons["Done"].tap()
+        let preview = app.otherElements["Khung ghép ảnh"]
+        XCTAssertTrue(preview.waitForExistence(timeout: 20))
+        preview.pinch(withScale: 2, velocity: 1)
+        let zoom = Double((preview.value as? String ?? "").replacingOccurrences(of: "%", with: "")) ?? 0
+        XCTAssertGreaterThan(zoom, 130); XCTAssertLessThanOrEqual(zoom, 400)
+        preview.pinch(withScale: 0.3, velocity: -1)
+        XCTAssertEqual(preview.value as? String, "100%")
+    }
     @MainActor func testImportChangeRatioAndShare() throws {
         let app = XCUIApplication()
         app.launchArguments = ["-language", "vi"]

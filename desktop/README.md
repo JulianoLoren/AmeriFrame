@@ -1,6 +1,6 @@
 # Native desktop apps
 
-Mosaic has a SwiftUI/AppKit macOS app and a C#/WPF Windows app. Both use the existing C++ geometry engine, run offline, and include all 36 layouts, 1–24 photos, VI/EN, light/dark themes, ratio presets/custom ratios, drag-to-crop, zoom, reorder/remove, colored frames and PNG/JPG export with a 3840 px long edge. Native file dialogs and drag/drop handle import; Cmd/Ctrl+O imports and Cmd/Ctrl+S exports.
+Mosaic has a SwiftUI/AppKit macOS app and a C#/WPF Windows app. Both use the existing C++ geometry engine, run offline, and include all 36 layouts, 1–24 photos, VI/EN, light/dark themes, ratio presets/custom ratios, drag-to-crop, pinch-to-zoom directly in each frame, mouse-wheel zoom, zoom, reorder/remove, colored frames and PNG/JPG export with a 3840 px long edge. Native file dialogs and drag/drop handle import; Cmd/Ctrl+O imports and Cmd/Ctrl+S exports.
 
 Files are limited to 30 MB each. Sources are downsampled to a shared 24-million-pixel budget; EXIF orientation is honored. Supported input formats depend on installed OS image codecs (PNG and JPEG are baseline; HEIC/WebP/AVIF availability varies). Photos and edit sessions are held in memory only; closing the app discards the session. Theme and language persist locally.
 
