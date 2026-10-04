@@ -1,404 +1,413 @@
 // !$*UTF8*$!
 {
-	"archiveVersion" = 1;
-	"classes" = {
+	archiveVersion = 1;
+	classes = {
 	};
-	"objectVersion" = 56;
-	"objects" = {
-		"28AAD1477D5182D66D4B03B3" = {
-			"isa" = "PBXFileReference";
-			"lastKnownFileType" = "folder.assetcatalog";
-			"path" = "Mosaic/Assets.xcassets";
-			"sourceTree" = "<group>";
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0DA6058B1CBC975ACC145BF7 /* MosaicTests/CollageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B075BCED513718BE1FC24A3 /* MosaicTests/CollageTests.swift */; };
+		0E7F3DBA4BED6E571797EDEA /* Mosaic/EditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715AE25114094100E9EA67EF /* Mosaic/EditorView.swift */; };
+		22F767E22721332D022E3EE9 /* MosaicUITests/EditorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 695A4236F9747D9489AFB840 /* MosaicUITests/EditorUITests.swift */; };
+		478AF18D02EF356FBAA0DC93 /* Mosaic/MosaicApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B2F5E0B2E7DD1C57C9A4D0 /* Mosaic/MosaicApp.swift */; };
+		49F602294E3599229CDD9517 /* Mosaic/Collage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790E805B45519A5C1C62C545 /* Mosaic/Collage.swift */; };
+		4D41DD372D8E0FAD9BCA5A62 /* Mosaic/PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 26B2A637F7DC4079D5AB78A5 /* Mosaic/PrivacyInfo.xcprivacy */; };
+		54BEFC71B62631FE15315CA2 /* Mosaic/GeometryBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4DF785AE15C4C12CD93C2B98 /* Mosaic/GeometryBridge.mm */; };
+		5C84B1277ECEB587CF5FC5E4 /* ../core/Geometry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7A36BCCA4FFF9E82FC3552C /* ../core/Geometry.cpp */; };
+		993A6F0DC816349E9715E5C7 /* Mosaic/Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 28AAD1477D5182D66D4B03B3 /* Mosaic/Assets.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E9CA66683FF22D7B8CC65928 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 98F54143AB4E86B28C3AFEE0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0E8A3AD980EC179856012B7E;
+			remoteInfo = Mosaic;
 		};
-		"993A6F0DC816349E9715E5C7" = {
-			"isa" = "PBXBuildFile";
-			"fileRef" = "28AAD1477D5182D66D4B03B3";
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		26B2A637F7DC4079D5AB78A5 /* Mosaic/PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Mosaic/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		28AAD1477D5182D66D4B03B3 /* Mosaic/Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Mosaic/Assets.xcassets; sourceTree = "<group>"; };
+		4DF785AE15C4C12CD93C2B98 /* Mosaic/GeometryBridge.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Mosaic/GeometryBridge.mm; sourceTree = "<group>"; };
+		5B075BCED513718BE1FC24A3 /* MosaicTests/CollageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MosaicTests/CollageTests.swift; sourceTree = "<group>"; };
+		695A4236F9747D9489AFB840 /* MosaicUITests/EditorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MosaicUITests/EditorUITests.swift; sourceTree = "<group>"; };
+		715AE25114094100E9EA67EF /* Mosaic/EditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mosaic/EditorView.swift; sourceTree = "<group>"; };
+		790E805B45519A5C1C62C545 /* Mosaic/Collage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mosaic/Collage.swift; sourceTree = "<group>"; };
+		7B594B6DB375E1BF3F23CDD6 /* Mosaic/Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Mosaic/Info.plist; sourceTree = "<group>"; };
+		7D1043473D55BFA90E8530D3 /* Mosaic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; path = Mosaic.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8EA505C86CBDFB763D1D830D /* Mosaic/GeometryBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Mosaic/GeometryBridge.h; sourceTree = "<group>"; };
+		A7A36BCCA4FFF9E82FC3552C /* ../core/Geometry.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ../core/Geometry.cpp; sourceTree = "<group>"; };
+		A7C9FD69DA095A3BF0CB4587 /* MosaicUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = MosaicUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F219C0274590DA45E4BEF1EA /* MosaicTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = MosaicTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F7B2F5E0B2E7DD1C57C9A4D0 /* Mosaic/MosaicApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mosaic/MosaicApp.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7561BFB015D8F536760CB671 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
 		};
-		"790E805B45519A5C1C62C545" = {
-			"isa" = "PBXFileReference";
-			"lastKnownFileType" = "sourcecode.swift";
-			"path" = "Mosaic/Collage.swift";
-			"sourceTree" = "<group>";
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B28B7AF69320201D1CF206EB = {
+			isa = PBXGroup;
+			children = (
+				28AAD1477D5182D66D4B03B3 /* Mosaic/Assets.xcassets */,
+				790E805B45519A5C1C62C545 /* Mosaic/Collage.swift */,
+				715AE25114094100E9EA67EF /* Mosaic/EditorView.swift */,
+				8EA505C86CBDFB763D1D830D /* Mosaic/GeometryBridge.h */,
+				4DF785AE15C4C12CD93C2B98 /* Mosaic/GeometryBridge.mm */,
+				7B594B6DB375E1BF3F23CDD6 /* Mosaic/Info.plist */,
+				F7B2F5E0B2E7DD1C57C9A4D0 /* Mosaic/MosaicApp.swift */,
+				26B2A637F7DC4079D5AB78A5 /* Mosaic/PrivacyInfo.xcprivacy */,
+				A7A36BCCA4FFF9E82FC3552C /* ../core/Geometry.cpp */,
+				FBDC4F23F93125BBEEAE800C /* Products */,
+				5B075BCED513718BE1FC24A3 /* MosaicTests/CollageTests.swift */,
+				695A4236F9747D9489AFB840 /* MosaicUITests/EditorUITests.swift */,
+			);
+			sourceTree = "<group>";
 		};
-		"49F602294E3599229CDD9517" = {
-			"isa" = "PBXBuildFile";
-			"fileRef" = "790E805B45519A5C1C62C545";
+		FBDC4F23F93125BBEEAE800C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7D1043473D55BFA90E8530D3 /* Mosaic.app */,
+				F219C0274590DA45E4BEF1EA /* MosaicTests.xctest */,
+				A7C9FD69DA095A3BF0CB4587 /* MosaicUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
 		};
-		"715AE25114094100E9EA67EF" = {
-			"isa" = "PBXFileReference";
-			"lastKnownFileType" = "sourcecode.swift";
-			"path" = "Mosaic/EditorView.swift";
-			"sourceTree" = "<group>";
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0E8A3AD980EC179856012B7E /* Mosaic */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 651ECA092BE81738918D8CDB /* Build configuration list for PBXNativeTarget "Mosaic" */;
+			buildPhases = (
+				BCE16DD0260827ECF338C787 /* Sources */,
+				7561BFB015D8F536760CB671 /* Frameworks */,
+				0189424A5A60FED329FA868E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Mosaic;
+			productName = Mosaic;
+			productReference = 7D1043473D55BFA90E8530D3 /* Mosaic.app */;
+			productType = "com.apple.product-type.application";
 		};
-		"0E7F3DBA4BED6E571797EDEA" = {
-			"isa" = "PBXBuildFile";
-			"fileRef" = "715AE25114094100E9EA67EF";
+		5A84779F73F7B6419BDB1882 /* MosaicUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9438044C2E3DA8B7D373989E /* Build configuration list for PBXNativeTarget "MosaicUITests" */;
+			buildPhases = (
+				3F0002D04A541FE103F80CF6 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C58B1D22E6B06406536A4294 /* PBXTargetDependency */,
+			);
+			name = MosaicUITests;
+			productName = MosaicUITests;
+			productReference = A7C9FD69DA095A3BF0CB4587 /* MosaicUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
 		};
-		"8EA505C86CBDFB763D1D830D" = {
-			"isa" = "PBXFileReference";
-			"lastKnownFileType" = "sourcecode.c.h";
-			"path" = "Mosaic/GeometryBridge.h";
-			"sourceTree" = "<group>";
+		64BCB755386F844C96A2A5B0 /* MosaicTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 12B527EF3EF9C4DD757429EA /* Build configuration list for PBXNativeTarget "MosaicTests" */;
+			buildPhases = (
+				6E431EB0650617AA1756B320 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C58B1D22E6B06406536A4294 /* PBXTargetDependency */,
+			);
+			name = MosaicTests;
+			productName = MosaicTests;
+			productReference = F219C0274590DA45E4BEF1EA /* MosaicTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		"4DF785AE15C4C12CD93C2B98" = {
-			"isa" = "PBXFileReference";
-			"lastKnownFileType" = "sourcecode.cpp.objcpp";
-			"path" = "Mosaic/GeometryBridge.mm";
-			"sourceTree" = "<group>";
-		};
-		"54BEFC71B62631FE15315CA2" = {
-			"isa" = "PBXBuildFile";
-			"fileRef" = "4DF785AE15C4C12CD93C2B98";
-		};
-		"7B594B6DB375E1BF3F23CDD6" = {
-			"isa" = "PBXFileReference";
-			"lastKnownFileType" = "text.plist.xml";
-			"path" = "Mosaic/Info.plist";
-			"sourceTree" = "<group>";
-		};
-		"F7B2F5E0B2E7DD1C57C9A4D0" = {
-			"isa" = "PBXFileReference";
-			"lastKnownFileType" = "sourcecode.swift";
-			"path" = "Mosaic/MosaicApp.swift";
-			"sourceTree" = "<group>";
-		};
-		"478AF18D02EF356FBAA0DC93" = {
-			"isa" = "PBXBuildFile";
-			"fileRef" = "F7B2F5E0B2E7DD1C57C9A4D0";
-		};
-		"26B2A637F7DC4079D5AB78A5" = {
-			"isa" = "PBXFileReference";
-			"lastKnownFileType" = "text.xml";
-			"path" = "Mosaic/PrivacyInfo.xcprivacy";
-			"sourceTree" = "<group>";
-		};
-		"4D41DD372D8E0FAD9BCA5A62" = {
-			"isa" = "PBXBuildFile";
-			"fileRef" = "26B2A637F7DC4079D5AB78A5";
-		};
-		"A7A36BCCA4FFF9E82FC3552C" = {
-			"isa" = "PBXFileReference";
-			"lastKnownFileType" = "sourcecode.cpp.cpp";
-			"path" = "../core/Geometry.cpp";
-			"sourceTree" = "<group>";
-		};
-		"5C84B1277ECEB587CF5FC5E4" = {
-			"isa" = "PBXBuildFile";
-			"fileRef" = "A7A36BCCA4FFF9E82FC3552C";
-		};
-		"7D1043473D55BFA90E8530D3" = {
-			"isa" = "PBXFileReference";
-			"explicitFileType" = "wrapper.application";
-			"path" = "Mosaic.app";
-			"sourceTree" = "BUILT_PRODUCTS_DIR";
-		};
-		"FBDC4F23F93125BBEEAE800C" = {
-			"isa" = "PBXGroup";
-			"children" = ("7D1043473D55BFA90E8530D3", "F219C0274590DA45E4BEF1EA", "A7C9FD69DA095A3BF0CB4587");
-			"name" = "Products";
-			"sourceTree" = "<group>";
-		};
-		"B28B7AF69320201D1CF206EB" = {
-			"isa" = "PBXGroup";
-			"children" = ("28AAD1477D5182D66D4B03B3", "790E805B45519A5C1C62C545", "715AE25114094100E9EA67EF", "8EA505C86CBDFB763D1D830D", "4DF785AE15C4C12CD93C2B98", "7B594B6DB375E1BF3F23CDD6", "F7B2F5E0B2E7DD1C57C9A4D0", "26B2A637F7DC4079D5AB78A5", "A7A36BCCA4FFF9E82FC3552C", "FBDC4F23F93125BBEEAE800C", "5B075BCED513718BE1FC24A3", "695A4236F9747D9489AFB840");
-			"sourceTree" = "<group>";
-		};
-		"BCE16DD0260827ECF338C787" = {
-			"isa" = "PBXSourcesBuildPhase";
-			"buildActionMask" = 2147483647;
-			"files" = ("49F602294E3599229CDD9517", "0E7F3DBA4BED6E571797EDEA", "54BEFC71B62631FE15315CA2", "478AF18D02EF356FBAA0DC93", "5C84B1277ECEB587CF5FC5E4");
-			"runOnlyForDeploymentPostprocessing" = 0;
-		};
-		"0189424A5A60FED329FA868E" = {
-			"isa" = "PBXResourcesBuildPhase";
-			"buildActionMask" = 2147483647;
-			"files" = ("993A6F0DC816349E9715E5C7", "4D41DD372D8E0FAD9BCA5A62");
-			"runOnlyForDeploymentPostprocessing" = 0;
-		};
-		"7561BFB015D8F536760CB671" = {
-			"isa" = "PBXFrameworksBuildPhase";
-			"buildActionMask" = 2147483647;
-			"files" = ();
-			"runOnlyForDeploymentPostprocessing" = 0;
-		};
-		"7082CC0B6FC1282FCEABD07A" = {
-			"isa" = "XCBuildConfiguration";
-			"buildSettings" = {
-				"SDKROOT" = "iphoneos";
-				"IPHONEOS_DEPLOYMENT_TARGET" = "17.0";
-				"CLANG_CXX_LANGUAGE_STANDARD" = "c++17";
-				"OTHER_CPLUSPLUSFLAGS" = "-ffp-contract=off";
-				"CLANG_ENABLE_MODULES" = "YES";
-				"CLANG_ENABLE_OBJC_ARC" = "YES";
-				"SWIFT_VERSION" = "5.0";
-				"SWIFT_OBJC_BRIDGING_HEADER" = "Mosaic/GeometryBridge.h";
-				"PRODUCT_BUNDLE_IDENTIFIER" = "com.ameriframe.mosaic";
-				"PRODUCT_NAME" = "$(TARGET_NAME)";
-				"INFOPLIST_FILE" = "Mosaic/Info.plist";
-				"TARGETED_DEVICE_FAMILY" = "1,2";
-				"CODE_SIGN_STYLE" = "Automatic";
-				"ENABLE_TESTABILITY" = "YES";
-				"ASSETCATALOG_COMPILER_APPICON_NAME" = "AppIcon";
-				"ENABLE_USER_SCRIPT_SANDBOXING" = "YES";
-				"SWIFT_OPTIMIZATION_LEVEL" = "-Onone";
-				"GCC_OPTIMIZATION_LEVEL" = "0";
-				"DEBUG_INFORMATION_FORMAT" = "dwarf";
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		98F54143AB4E86B28C3AFEE0 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1600;
 			};
-			"name" = "Debug";
+			buildConfigurationList = F8C70E4123C9AE82C42562CC /* Build configuration list for PBXProject "Mosaic" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				vi,
+				Base,
+			);
+			mainGroup = B28B7AF69320201D1CF206EB;
+			productRefGroup = FBDC4F23F93125BBEEAE800C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0E8A3AD980EC179856012B7E /* Mosaic */,
+				64BCB755386F844C96A2A5B0 /* MosaicTests */,
+				5A84779F73F7B6419BDB1882 /* MosaicUITests */,
+			);
 		};
-		"639A7CA24D39909E713B47F7" = {
-			"isa" = "XCBuildConfiguration";
-			"buildSettings" = {
-				"SDKROOT" = "iphoneos";
-				"IPHONEOS_DEPLOYMENT_TARGET" = "17.0";
-				"CLANG_CXX_LANGUAGE_STANDARD" = "c++17";
-				"OTHER_CPLUSPLUSFLAGS" = "-ffp-contract=off";
-				"CLANG_ENABLE_MODULES" = "YES";
-				"CLANG_ENABLE_OBJC_ARC" = "YES";
-				"SWIFT_VERSION" = "5.0";
-				"SWIFT_OBJC_BRIDGING_HEADER" = "Mosaic/GeometryBridge.h";
-				"PRODUCT_BUNDLE_IDENTIFIER" = "com.ameriframe.mosaic";
-				"PRODUCT_NAME" = "$(TARGET_NAME)";
-				"INFOPLIST_FILE" = "Mosaic/Info.plist";
-				"TARGETED_DEVICE_FAMILY" = "1,2";
-				"CODE_SIGN_STYLE" = "Automatic";
-				"ENABLE_TESTABILITY" = "YES";
-				"ASSETCATALOG_COMPILER_APPICON_NAME" = "AppIcon";
-				"ENABLE_USER_SCRIPT_SANDBOXING" = "YES";
-				"SWIFT_OPTIMIZATION_LEVEL" = "-O";
-				"GCC_OPTIMIZATION_LEVEL" = "s";
-				"DEBUG_INFORMATION_FORMAT" = "dwarf-with-dsym";
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0189424A5A60FED329FA868E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				993A6F0DC816349E9715E5C7 /* Mosaic/Assets.xcassets in Resources */,
+				4D41DD372D8E0FAD9BCA5A62 /* Mosaic/PrivacyInfo.xcprivacy in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3F0002D04A541FE103F80CF6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22F767E22721332D022E3EE9 /* MosaicUITests/EditorUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6E431EB0650617AA1756B320 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0DA6058B1CBC975ACC145BF7 /* MosaicTests/CollageTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BCE16DD0260827ECF338C787 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				49F602294E3599229CDD9517 /* Mosaic/Collage.swift in Sources */,
+				0E7F3DBA4BED6E571797EDEA /* Mosaic/EditorView.swift in Sources */,
+				54BEFC71B62631FE15315CA2 /* Mosaic/GeometryBridge.mm in Sources */,
+				478AF18D02EF356FBAA0DC93 /* Mosaic/MosaicApp.swift in Sources */,
+				5C84B1277ECEB587CF5FC5E4 /* ../core/Geometry.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C58B1D22E6B06406536A4294 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0E8A3AD980EC179856012B7E /* Mosaic */;
+			targetProxy = E9CA66683FF22D7B8CC65928 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		0F3D67935A4F199E058A017A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_STYLE = Automatic;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				OTHER_CPLUSPLUSFLAGS = "-ffp-contract=off";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ameriframe.mosaic.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Mosaic.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Mosaic";
 			};
-			"name" = "Release";
+			name = Debug;
 		};
-		"651ECA092BE81738918D8CDB" = {
-			"isa" = "XCConfigurationList";
-			"buildConfigurations" = ("7082CC0B6FC1282FCEABD07A", "639A7CA24D39909E713B47F7");
-			"defaultConfigurationIsVisible" = 0;
-			"defaultConfigurationName" = "Release";
-		};
-		"0E8A3AD980EC179856012B7E" = {
-			"isa" = "PBXNativeTarget";
-			"buildConfigurationList" = "651ECA092BE81738918D8CDB";
-			"buildPhases" = ("BCE16DD0260827ECF338C787", "7561BFB015D8F536760CB671", "0189424A5A60FED329FA868E");
-			"buildRules" = ();
-			"dependencies" = ();
-			"name" = "Mosaic";
-			"productName" = "Mosaic";
-			"productReference" = "7D1043473D55BFA90E8530D3";
-			"productType" = "com.apple.product-type.application";
-		};
-		"5B075BCED513718BE1FC24A3" = {
-			"isa" = "PBXFileReference";
-			"lastKnownFileType" = "sourcecode.swift";
-			"path" = "MosaicTests/CollageTests.swift";
-			"sourceTree" = "<group>";
-		};
-		"F219C0274590DA45E4BEF1EA" = {
-			"isa" = "PBXFileReference";
-			"explicitFileType" = "wrapper.cfbundle";
-			"path" = "MosaicTests.xctest";
-			"sourceTree" = "BUILT_PRODUCTS_DIR";
-		};
-		"0DA6058B1CBC975ACC145BF7" = {
-			"isa" = "PBXBuildFile";
-			"fileRef" = "5B075BCED513718BE1FC24A3";
-		};
-		"6E431EB0650617AA1756B320" = {
-			"isa" = "PBXSourcesBuildPhase";
-			"buildActionMask" = 2147483647;
-			"files" = ("0DA6058B1CBC975ACC145BF7");
-			"runOnlyForDeploymentPostprocessing" = 0;
-		};
-		"E9CA66683FF22D7B8CC65928" = {
-			"isa" = "PBXContainerItemProxy";
-			"containerPortal" = "98F54143AB4E86B28C3AFEE0";
-			"proxyType" = 1;
-			"remoteGlobalIDString" = "0E8A3AD980EC179856012B7E";
-			"remoteInfo" = "Mosaic";
-		};
-		"C58B1D22E6B06406536A4294" = {
-			"isa" = "PBXTargetDependency";
-			"target" = "0E8A3AD980EC179856012B7E";
-			"targetProxy" = "E9CA66683FF22D7B8CC65928";
-		};
-		"0F3D67935A4F199E058A017A" = {
-			"isa" = "XCBuildConfiguration";
-			"buildSettings" = {
-				"SDKROOT" = "iphoneos";
-				"IPHONEOS_DEPLOYMENT_TARGET" = "17.0";
-				"CLANG_CXX_LANGUAGE_STANDARD" = "c++17";
-				"OTHER_CPLUSPLUSFLAGS" = "-ffp-contract=off";
-				"CLANG_ENABLE_MODULES" = "YES";
-				"CLANG_ENABLE_OBJC_ARC" = "YES";
-				"SWIFT_VERSION" = "5.0";
-				"PRODUCT_BUNDLE_IDENTIFIER" = "com.ameriframe.mosaic.tests";
-				"PRODUCT_NAME" = "$(TARGET_NAME)";
-				"TARGETED_DEVICE_FAMILY" = "1,2";
-				"CODE_SIGN_STYLE" = "Automatic";
-				"ENABLE_TESTABILITY" = "YES";
-				"ENABLE_USER_SCRIPT_SANDBOXING" = "YES";
-				"GENERATE_INFOPLIST_FILE" = "YES";
-				"TEST_HOST" = "$(BUILT_PRODUCTS_DIR)/Mosaic.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Mosaic";
-				"BUNDLE_LOADER" = "$(TEST_HOST)";
+		20B70E15FDC36C625E57F658 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_STYLE = Automatic;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				OTHER_CPLUSPLUSFLAGS = "-ffp-contract=off";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ameriframe.mosaic.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Mosaic.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Mosaic";
 			};
-			"name" = "Debug";
+			name = Release;
 		};
-		"20B70E15FDC36C625E57F658" = {
-			"isa" = "XCBuildConfiguration";
-			"buildSettings" = {
-				"SDKROOT" = "iphoneos";
-				"IPHONEOS_DEPLOYMENT_TARGET" = "17.0";
-				"CLANG_CXX_LANGUAGE_STANDARD" = "c++17";
-				"OTHER_CPLUSPLUSFLAGS" = "-ffp-contract=off";
-				"CLANG_ENABLE_MODULES" = "YES";
-				"CLANG_ENABLE_OBJC_ARC" = "YES";
-				"SWIFT_VERSION" = "5.0";
-				"PRODUCT_BUNDLE_IDENTIFIER" = "com.ameriframe.mosaic.tests";
-				"PRODUCT_NAME" = "$(TARGET_NAME)";
-				"TARGETED_DEVICE_FAMILY" = "1,2";
-				"CODE_SIGN_STYLE" = "Automatic";
-				"ENABLE_TESTABILITY" = "YES";
-				"ENABLE_USER_SCRIPT_SANDBOXING" = "YES";
-				"GENERATE_INFOPLIST_FILE" = "YES";
-				"TEST_HOST" = "$(BUILT_PRODUCTS_DIR)/Mosaic.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Mosaic";
-				"BUNDLE_LOADER" = "$(TEST_HOST)";
+		639A7CA24D39909E713B47F7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 55BR5MB5KN;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_OPTIMIZATION_LEVEL = s;
+				INFOPLIST_FILE = Mosaic/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				OTHER_CPLUSPLUSFLAGS = "-ffp-contract=off";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ameriframe.mosaic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = Mosaic/GeometryBridge.h;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
-			"name" = "Release";
+			name = Release;
 		};
-		"12B527EF3EF9C4DD757429EA" = {
-			"isa" = "XCConfigurationList";
-			"buildConfigurations" = ("0F3D67935A4F199E058A017A", "20B70E15FDC36C625E57F658");
-			"defaultConfigurationIsVisible" = 0;
-			"defaultConfigurationName" = "Release";
-		};
-		"64BCB755386F844C96A2A5B0" = {
-			"isa" = "PBXNativeTarget";
-			"buildConfigurationList" = "12B527EF3EF9C4DD757429EA";
-			"buildPhases" = ("6E431EB0650617AA1756B320");
-			"buildRules" = ();
-			"dependencies" = ("C58B1D22E6B06406536A4294");
-			"name" = "MosaicTests";
-			"productName" = "MosaicTests";
-			"productReference" = "F219C0274590DA45E4BEF1EA";
-			"productType" = "com.apple.product-type.bundle.unit-test";
-		};
-		"695A4236F9747D9489AFB840" = {
-			"isa" = "PBXFileReference";
-			"lastKnownFileType" = "sourcecode.swift";
-			"path" = "MosaicUITests/EditorUITests.swift";
-			"sourceTree" = "<group>";
-		};
-		"A7C9FD69DA095A3BF0CB4587" = {
-			"isa" = "PBXFileReference";
-			"explicitFileType" = "wrapper.cfbundle";
-			"path" = "MosaicUITests.xctest";
-			"sourceTree" = "BUILT_PRODUCTS_DIR";
-		};
-		"22F767E22721332D022E3EE9" = {
-			"isa" = "PBXBuildFile";
-			"fileRef" = "695A4236F9747D9489AFB840";
-		};
-		"3F0002D04A541FE103F80CF6" = {
-			"isa" = "PBXSourcesBuildPhase";
-			"buildActionMask" = 2147483647;
-			"files" = ("22F767E22721332D022E3EE9");
-			"runOnlyForDeploymentPostprocessing" = 0;
-		};
-		"94C1D7A82E2F92E70C5BA5D8" = {
-			"isa" = "XCBuildConfiguration";
-			"buildSettings" = {
-				"SDKROOT" = "iphoneos";
-				"IPHONEOS_DEPLOYMENT_TARGET" = "17.0";
-				"CLANG_CXX_LANGUAGE_STANDARD" = "c++17";
-				"OTHER_CPLUSPLUSFLAGS" = "-ffp-contract=off";
-				"CLANG_ENABLE_MODULES" = "YES";
-				"CLANG_ENABLE_OBJC_ARC" = "YES";
-				"SWIFT_VERSION" = "5.0";
-				"PRODUCT_BUNDLE_IDENTIFIER" = "com.ameriframe.mosaic.uitests";
-				"PRODUCT_NAME" = "$(TARGET_NAME)";
-				"TARGETED_DEVICE_FAMILY" = "1,2";
-				"CODE_SIGN_STYLE" = "Automatic";
-				"ENABLE_TESTABILITY" = "YES";
-				"ENABLE_USER_SCRIPT_SANDBOXING" = "YES";
-				"GENERATE_INFOPLIST_FILE" = "YES";
-				"TEST_TARGET_NAME" = "Mosaic";
+		7082CC0B6FC1282FCEABD07A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 55BR5MB5KN;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				INFOPLIST_FILE = Mosaic/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				OTHER_CPLUSPLUSFLAGS = "-ffp-contract=off";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ameriframe.mosaic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = Mosaic/GeometryBridge.h;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
-			"name" = "Debug";
+			name = Debug;
 		};
-		"9609A256A79253DD705A918E" = {
-			"isa" = "XCBuildConfiguration";
-			"buildSettings" = {
-				"SDKROOT" = "iphoneos";
-				"IPHONEOS_DEPLOYMENT_TARGET" = "17.0";
-				"CLANG_CXX_LANGUAGE_STANDARD" = "c++17";
-				"OTHER_CPLUSPLUSFLAGS" = "-ffp-contract=off";
-				"CLANG_ENABLE_MODULES" = "YES";
-				"CLANG_ENABLE_OBJC_ARC" = "YES";
-				"SWIFT_VERSION" = "5.0";
-				"PRODUCT_BUNDLE_IDENTIFIER" = "com.ameriframe.mosaic.uitests";
-				"PRODUCT_NAME" = "$(TARGET_NAME)";
-				"TARGETED_DEVICE_FAMILY" = "1,2";
-				"CODE_SIGN_STYLE" = "Automatic";
-				"ENABLE_TESTABILITY" = "YES";
-				"ENABLE_USER_SCRIPT_SANDBOXING" = "YES";
-				"GENERATE_INFOPLIST_FILE" = "YES";
-				"TEST_TARGET_NAME" = "Mosaic";
+		89E1FD6268CC0F221A2BE178 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
 			};
-			"name" = "Release";
+			name = Debug;
 		};
-		"9438044C2E3DA8B7D373989E" = {
-			"isa" = "XCConfigurationList";
-			"buildConfigurations" = ("94C1D7A82E2F92E70C5BA5D8", "9609A256A79253DD705A918E");
-			"defaultConfigurationIsVisible" = 0;
-			"defaultConfigurationName" = "Release";
-		};
-		"5A84779F73F7B6419BDB1882" = {
-			"isa" = "PBXNativeTarget";
-			"buildConfigurationList" = "9438044C2E3DA8B7D373989E";
-			"buildPhases" = ("3F0002D04A541FE103F80CF6");
-			"buildRules" = ();
-			"dependencies" = ("C58B1D22E6B06406536A4294");
-			"name" = "MosaicUITests";
-			"productName" = "MosaicUITests";
-			"productReference" = "A7C9FD69DA095A3BF0CB4587";
-			"productType" = "com.apple.product-type.bundle.ui-testing";
-		};
-		"89E1FD6268CC0F221A2BE178" = {
-			"isa" = "XCBuildConfiguration";
-			"buildSettings" = {
+		94C1D7A82E2F92E70C5BA5D8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_STYLE = Automatic;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				OTHER_CPLUSPLUSFLAGS = "-ffp-contract=off";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ameriframe.mosaic.uitests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Mosaic;
 			};
-			"name" = "Debug";
+			name = Debug;
 		};
-		"E6DE6C99132752C914FEF632" = {
-			"isa" = "XCBuildConfiguration";
-			"buildSettings" = {
+		9609A256A79253DD705A918E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_STYLE = Automatic;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				OTHER_CPLUSPLUSFLAGS = "-ffp-contract=off";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ameriframe.mosaic.uitests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Mosaic;
 			};
-			"name" = "Release";
+			name = Release;
 		};
-		"F8C70E4123C9AE82C42562CC" = {
-			"isa" = "XCConfigurationList";
-			"buildConfigurations" = ("89E1FD6268CC0F221A2BE178", "E6DE6C99132752C914FEF632");
-			"defaultConfigurationIsVisible" = 0;
-			"defaultConfigurationName" = "Release";
-		};
-		"98F54143AB4E86B28C3AFEE0" = {
-			"isa" = "PBXProject";
-			"attributes" = {
-				"BuildIndependentTargetsInParallel" = "YES";
-				"LastUpgradeCheck" = "1600";
+		E6DE6C99132752C914FEF632 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
 			};
-			"buildConfigurationList" = "F8C70E4123C9AE82C42562CC";
-			"compatibilityVersion" = "Xcode 14.0";
-			"developmentRegion" = "en";
-			"knownRegions" = ("en", "vi", "Base");
-			"mainGroup" = "B28B7AF69320201D1CF206EB";
-			"productRefGroup" = "FBDC4F23F93125BBEEAE800C";
-			"projectDirPath" = "";
-			"projectRoot" = "";
-			"targets" = ("0E8A3AD980EC179856012B7E", "64BCB755386F844C96A2A5B0", "5A84779F73F7B6419BDB1882");
+			name = Release;
 		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		12B527EF3EF9C4DD757429EA /* Build configuration list for PBXNativeTarget "MosaicTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0F3D67935A4F199E058A017A /* Debug */,
+				20B70E15FDC36C625E57F658 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		651ECA092BE81738918D8CDB /* Build configuration list for PBXNativeTarget "Mosaic" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7082CC0B6FC1282FCEABD07A /* Debug */,
+				639A7CA24D39909E713B47F7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9438044C2E3DA8B7D373989E /* Build configuration list for PBXNativeTarget "MosaicUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				94C1D7A82E2F92E70C5BA5D8 /* Debug */,
+				9609A256A79253DD705A918E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F8C70E4123C9AE82C42562CC /* Build configuration list for PBXProject "Mosaic" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				89E1FD6268CC0F221A2BE178 /* Debug */,
+				E6DE6C99132752C914FEF632 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
 	};
-	"rootObject" = "98F54143AB4E86B28C3AFEE0";
+	rootObject = 98F54143AB4E86B28C3AFEE0 /* Project object */;
 }
